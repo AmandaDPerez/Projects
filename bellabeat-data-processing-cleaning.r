@@ -2,144 +2,49 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "b2599bc7",
+   "id": "8fcf17b7",
    "metadata": {
     "papermill": {
-     "duration": 0.005109,
-     "end_time": "2025-03-15T06:45:29.180106",
+     "duration": 0.003218,
+     "end_time": "2025-03-25T04:49:31.938068",
      "exception": false,
-     "start_time": "2025-03-15T06:45:29.174997",
+     "start_time": "2025-03-25T04:49:31.934850",
      "status": "completed"
     },
     "tags": []
    },
    "source": [
     "# BellaBeat Case Study: Data Processing & Cleaning\n",
-    "## Loading Libraries"
+    "## Loading Libraries & Importing Data"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "ef4475b1",
+   "id": "e5e15b38",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:29.193242Z",
-     "iopub.status.busy": "2025-03-15T06:45:29.190805Z",
-     "iopub.status.idle": "2025-03-15T06:45:29.952671Z",
-     "shell.execute_reply": "2025-03-15T06:45:29.950922Z"
+     "iopub.execute_input": "2025-03-25T04:49:31.946517Z",
+     "iopub.status.busy": "2025-03-25T04:49:31.944627Z",
+     "iopub.status.idle": "2025-03-25T04:49:32.935660Z",
+     "shell.execute_reply": "2025-03-25T04:49:32.934062Z"
     },
     "papermill": {
-     "duration": 0.770645,
-     "end_time": "2025-03-15T06:45:29.955132",
+     "duration": 0.997463,
+     "end_time": "2025-03-25T04:49:32.938041",
      "exception": false,
-     "start_time": "2025-03-15T06:45:29.184487",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "\n",
-      "Attaching package: ‘dplyr’\n",
-      "\n",
-      "\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "The following objects are masked from ‘package:stats’:\n",
-      "\n",
-      "    filter, lag\n",
-      "\n",
-      "\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "The following objects are masked from ‘package:base’:\n",
-      "\n",
-      "    intersect, setdiff, setequal, union\n",
-      "\n",
-      "\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "\n",
-      "Attaching package: ‘psych’\n",
-      "\n",
-      "\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "The following objects are masked from ‘package:ggplot2’:\n",
-      "\n",
-      "    %+%, alpha\n",
-      "\n",
-      "\n"
-     ]
-    }
-   ],
-   "source": [
-    "library(dplyr)\n",
-    "library(ggplot2)\n",
-    "library(tidyr)\n",
-    "library(psych)        # For corPlot\n",
-    "options(warn = -1)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "650b36a3",
-   "metadata": {
-    "papermill": {
-     "duration": 0.004432,
-     "end_time": "2025-03-15T06:45:29.964405",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:29.959973",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "source": [
-    "## Loading Datasets"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "id": "75a7ceb3",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.046569Z",
-     "iopub.status.busy": "2025-03-15T06:45:29.975351Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.198873Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.197099Z"
-    },
-    "papermill": {
-     "duration": 0.232478,
-     "end_time": "2025-03-15T06:45:30.201295",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:29.968817",
+     "start_time": "2025-03-25T04:49:31.940578",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
+    "suppressPackageStartupMessages(library(dplyr))\n",
+    "library(ggplot2)\n",
+    "library(tidyr)\n",
+    "library(psych, warn.conflicts=FALSE)        # For corPlot\n",
+    "\n",
     "daily_activity <- read.csv(\"/kaggle/input/bellabeat-datasets/dailyActivity_merged.csv\")\n",
     "sleep_day      <- read.csv(\"/kaggle/input/bellabeat-datasets/sleepDay_merged.csv\")\n",
     "hourly_intensities <- read.csv(\"/kaggle/input/bellabeat-datasets/hourlyIntensities_merged.csv\")\n",
@@ -148,13 +53,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "36aaa676",
+   "id": "343dc5fb",
    "metadata": {
     "papermill": {
-     "duration": 0.004473,
-     "end_time": "2025-03-15T06:45:30.210220",
+     "duration": 0.002275,
+     "end_time": "2025-03-25T04:49:32.942941",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.205747",
+     "start_time": "2025-03-25T04:49:32.940666",
      "status": "completed"
     },
     "tags": []
@@ -163,152 +68,19 @@
     "## Data Cleaning\n",
     "### Daily Activity Dataset Cleaning\n",
     "- Creating a `Date` variable in the correct format\n",
-    "- Selecting relevant variables"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 3,
-   "id": "b1b6c7a1",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.222511Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.221019Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.347173Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.345527Z"
-    },
-    "papermill": {
-     "duration": 0.134753,
-     "end_time": "2025-03-15T06:45:30.349473",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:30.214720",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
-    "daily_activity_clean <- daily_activity %>%\n",
-    "  mutate(Date = as.Date(ActivityDate, format = \"%m/%d/%Y\")) %>%\n",
-    "  select(Id, Date, TotalSteps, TotalDistance, VeryActiveMinutes, FairlyActiveMinutes, \n",
-    "         LightlyActiveMinutes, SedentaryMinutes, Calories)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "71d787f1",
-   "metadata": {
-    "papermill": {
-     "duration": 0.004679,
-     "end_time": "2025-03-15T06:45:30.359095",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:30.354416",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "source": [
+    "- Selecting relevant variables\n",
+    "  \n",
     "### Daily Sleep Dataset Cleaning\n",
     "- Creating a `Date` variable in the correct format\n",
     "- Selecting relevant variables\n",
-    "- Creating a `SleepEfficiency` variables based on amount of time asleep divided by total time in bed.\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "id": "c945725b",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.371923Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.370114Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.391614Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.389924Z"
-    },
-    "papermill": {
-     "duration": 0.031122,
-     "end_time": "2025-03-15T06:45:30.394711",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:30.363589",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
-    "sleep_day_clean <- sleep_day %>%\n",
-    "  mutate(Date = as.Date(substr(SleepDay, 1, 9), format = \"%m/%d/%Y\")) %>%\n",
-    "  select(Id, Date, TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed) %>%\n",
-    "  # Calculate sleep efficiency\n",
-    "  mutate(SleepEfficiency = TotalMinutesAsleep / TotalTimeInBed)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "3e53ac01",
-   "metadata": {
-    "papermill": {
-     "duration": 0.004481,
-     "end_time": "2025-03-15T06:45:30.403859",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:30.399378",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "source": [
+    "- Creating a `SleepEfficiency` variables based on amount of time asleep divided by total time in bed.\n",
+    "\n",
     "### Hourly Intensities Dataset Cleaning\n",
     "- Creating a `DateTime` variable in the correct format\n",
     "- Creating a `Date` variable in the correct format\n",
     "- Creating a `Hour` variable in the correct format\n",
-    "- Selecting relevant variables\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "id": "6b83c57c",
-   "metadata": {
-    "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.416124Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.414610Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.465210Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.463469Z"
-    },
-    "papermill": {
-     "duration": 0.060228,
-     "end_time": "2025-03-15T06:45:30.468473",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:30.408245",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "outputs": [],
-   "source": [
-    "hourly_intensities_clean <- hourly_intensities %>%\n",
-    "  mutate(\n",
-    "    DateTime = as.POSIXct(ActivityHour, format = \"%m/%d/%Y %I:%M:%S %p\"),\n",
-    "    Date = as.Date(DateTime),\n",
-    "    Hour = format(DateTime, \"%H\")\n",
-    "  ) %>%\n",
-    "  select(Id, Date, Hour, TotalIntensity, AverageIntensity)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "76534e97",
-   "metadata": {
-    "papermill": {
-     "duration": 0.004437,
-     "end_time": "2025-03-15T06:45:30.477488",
-     "exception": false,
-     "start_time": "2025-03-15T06:45:30.473051",
-     "status": "completed"
-    },
-    "tags": []
-   },
-   "source": [
+    "- Selecting relevant variables\n",
+    "\n",
     "### Hourly Steps Dataset Cleaning\n",
     "- Creating a `DateTime` variable in the correct format\n",
     "- Creating a `Date` variable in the correct format\n",
@@ -318,26 +90,45 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
-   "id": "871c2932",
+   "execution_count": 2,
+   "id": "264c777d",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.490329Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.488759Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.544847Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.543127Z"
+     "iopub.execute_input": "2025-03-25T04:49:33.011067Z",
+     "iopub.status.busy": "2025-03-25T04:49:32.948982Z",
+     "iopub.status.idle": "2025-03-25T04:49:33.187841Z",
+     "shell.execute_reply": "2025-03-25T04:49:33.186402Z"
     },
     "papermill": {
-     "duration": 0.065965,
-     "end_time": "2025-03-15T06:45:30.547904",
+     "duration": 0.244504,
+     "end_time": "2025-03-25T04:49:33.189679",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.481939",
+     "start_time": "2025-03-25T04:49:32.945175",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
+    "daily_activity_clean <- daily_activity %>%\n",
+    "  mutate(Date = as.Date(ActivityDate, format = \"%m/%d/%Y\")) %>%\n",
+    "  select(Id, Date, TotalSteps, TotalDistance, VeryActiveMinutes, FairlyActiveMinutes, \n",
+    "         LightlyActiveMinutes, SedentaryMinutes, Calories)\n",
+    "\n",
+    "sleep_day_clean <- sleep_day %>%\n",
+    "  mutate(Date = as.Date(substr(SleepDay, 1, 9), format = \"%m/%d/%Y\")) %>%\n",
+    "  select(Id, Date, TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed) %>%\n",
+    "  # Calculate sleep efficiency\n",
+    "  mutate(SleepEfficiency = TotalMinutesAsleep / TotalTimeInBed)\n",
+    "\n",
+    "hourly_intensities_clean <- hourly_intensities %>%\n",
+    "  mutate(\n",
+    "    DateTime = as.POSIXct(ActivityHour, format = \"%m/%d/%Y %I:%M:%S %p\"),\n",
+    "    Date = as.Date(DateTime),\n",
+    "    Hour = format(DateTime, \"%H\")\n",
+    "  ) %>%\n",
+    "  select(Id, Date, Hour, TotalIntensity, AverageIntensity)\n",
+    "\n",
     "hourly_steps_clean <- hourly_steps %>%\n",
     "  mutate(\n",
     "    DateTime = as.POSIXct(ActivityHour, format = \"%m/%d/%Y %I:%M:%S %p\"),\n",
@@ -349,13 +140,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4333e053",
+   "id": "f74b81f8",
    "metadata": {
     "papermill": {
-     "duration": 0.004549,
-     "end_time": "2025-03-15T06:45:30.556967",
+     "duration": 0.002256,
+     "end_time": "2025-03-25T04:49:33.194532",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.552418",
+     "start_time": "2025-03-25T04:49:33.192276",
      "status": "completed"
     },
     "tags": []
@@ -366,20 +157,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
-   "id": "5642d905",
+   "execution_count": 3,
+   "id": "821b58b9",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.569782Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.567975Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.655208Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.652649Z"
+     "iopub.execute_input": "2025-03-25T04:49:33.201821Z",
+     "iopub.status.busy": "2025-03-25T04:49:33.200611Z",
+     "iopub.status.idle": "2025-03-25T04:49:33.250374Z",
+     "shell.execute_reply": "2025-03-25T04:49:33.249064Z"
     },
     "papermill": {
-     "duration": 0.097051,
-     "end_time": "2025-03-15T06:45:30.658511",
+     "duration": 0.055275,
+     "end_time": "2025-03-25T04:49:33.252087",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.561460",
+     "start_time": "2025-03-25T04:49:33.196812",
      "status": "completed"
     },
     "tags": []
@@ -408,13 +199,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8351cc7d",
+   "id": "b794b198",
    "metadata": {
     "papermill": {
-     "duration": 0.004371,
-     "end_time": "2025-03-15T06:45:30.667565",
+     "duration": 0.002203,
+     "end_time": "2025-03-25T04:49:33.256773",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.663194",
+     "start_time": "2025-03-25T04:49:33.254570",
      "status": "completed"
     },
     "tags": []
@@ -425,20 +216,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
-   "id": "651a7bc7",
+   "execution_count": 4,
+   "id": "90677709",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.680423Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.678468Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.713132Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.711077Z"
+     "iopub.execute_input": "2025-03-25T04:49:33.264020Z",
+     "iopub.status.busy": "2025-03-25T04:49:33.262684Z",
+     "iopub.status.idle": "2025-03-25T04:49:33.289509Z",
+     "shell.execute_reply": "2025-03-25T04:49:33.287947Z"
     },
     "papermill": {
-     "duration": 0.045098,
-     "end_time": "2025-03-15T06:45:30.717042",
+     "duration": 0.033479,
+     "end_time": "2025-03-25T04:49:33.292332",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.671944",
+     "start_time": "2025-03-25T04:49:33.258853",
      "status": "completed"
     },
     "tags": []
@@ -476,20 +267,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
-   "id": "03cf8fbb",
+   "execution_count": 5,
+   "id": "8893d2a4",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.730245Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.728283Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.837564Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.834892Z"
+     "iopub.execute_input": "2025-03-25T04:49:33.300084Z",
+     "iopub.status.busy": "2025-03-25T04:49:33.298691Z",
+     "iopub.status.idle": "2025-03-25T04:49:33.385606Z",
+     "shell.execute_reply": "2025-03-25T04:49:33.383280Z"
     },
     "papermill": {
-     "duration": 0.118799,
-     "end_time": "2025-03-15T06:45:30.840282",
+     "duration": 0.09318,
+     "end_time": "2025-03-25T04:49:33.387971",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.721483",
+     "start_time": "2025-03-25T04:49:33.294791",
      "status": "completed"
     },
     "tags": []
@@ -806,13 +597,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6a31966b",
+   "id": "1e6f5f55",
    "metadata": {
     "papermill": {
-     "duration": 0.005124,
-     "end_time": "2025-03-15T06:45:30.850786",
+     "duration": 0.00265,
+     "end_time": "2025-03-25T04:49:33.393649",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.845662",
+     "start_time": "2025-03-25T04:49:33.390999",
      "status": "completed"
     },
     "tags": []
@@ -824,22 +615,22 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
-   "id": "9c710936",
+   "execution_count": 6,
+   "id": "be068285",
    "metadata": {
     "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
     "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.864355Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.862895Z",
-     "iopub.status.idle": "2025-03-15T06:45:30.886748Z",
-     "shell.execute_reply": "2025-03-15T06:45:30.885113Z"
+     "iopub.execute_input": "2025-03-25T04:49:33.402385Z",
+     "iopub.status.busy": "2025-03-25T04:49:33.400969Z",
+     "iopub.status.idle": "2025-03-25T04:49:33.427465Z",
+     "shell.execute_reply": "2025-03-25T04:49:33.420189Z"
     },
     "papermill": {
-     "duration": 0.033935,
-     "end_time": "2025-03-15T06:45:30.889750",
+     "duration": 0.033701,
+     "end_time": "2025-03-25T04:49:33.430004",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.855815",
+     "start_time": "2025-03-25T04:49:33.396303",
      "status": "completed"
     },
     "tags": []
@@ -860,13 +651,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "46452959",
+   "id": "fd715402",
    "metadata": {
     "papermill": {
-     "duration": 0.005072,
-     "end_time": "2025-03-15T06:45:30.900178",
+     "duration": 0.002669,
+     "end_time": "2025-03-25T04:49:33.435642",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.895106",
+     "start_time": "2025-03-25T04:49:33.432973",
      "status": "completed"
     },
     "tags": []
@@ -877,20 +668,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
-   "id": "884288f8",
+   "execution_count": 7,
+   "id": "de96f218",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:30.913741Z",
-     "iopub.status.busy": "2025-03-15T06:45:30.912208Z",
-     "iopub.status.idle": "2025-03-15T06:45:31.210602Z",
-     "shell.execute_reply": "2025-03-15T06:45:31.207961Z"
+     "iopub.execute_input": "2025-03-25T04:49:33.443518Z",
+     "iopub.status.busy": "2025-03-25T04:49:33.442434Z",
+     "iopub.status.idle": "2025-03-25T04:49:33.824150Z",
+     "shell.execute_reply": "2025-03-25T04:49:33.822120Z"
     },
     "papermill": {
-     "duration": 0.310466,
-     "end_time": "2025-03-15T06:45:31.215695",
+     "duration": 0.389375,
+     "end_time": "2025-03-25T04:49:33.827651",
      "exception": false,
-     "start_time": "2025-03-15T06:45:30.905229",
+     "start_time": "2025-03-25T04:49:33.438276",
      "status": "completed"
     },
     "tags": []
@@ -925,20 +716,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
-   "id": "33b54c1b",
+   "execution_count": 8,
+   "id": "cb84fa12",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:31.237311Z",
-     "iopub.status.busy": "2025-03-15T06:45:31.235791Z",
-     "iopub.status.idle": "2025-03-15T06:45:33.630043Z",
-     "shell.execute_reply": "2025-03-15T06:45:33.628231Z"
+     "iopub.execute_input": "2025-03-25T04:49:33.842842Z",
+     "iopub.status.busy": "2025-03-25T04:49:33.841562Z",
+     "iopub.status.idle": "2025-03-25T04:49:35.812628Z",
+     "shell.execute_reply": "2025-03-25T04:49:35.810890Z"
     },
     "papermill": {
-     "duration": 2.407515,
-     "end_time": "2025-03-15T06:45:33.632581",
+     "duration": 1.981563,
+     "end_time": "2025-03-25T04:49:35.814941",
      "exception": false,
-     "start_time": "2025-03-15T06:45:31.225066",
+     "start_time": "2025-03-25T04:49:33.833378",
      "status": "completed"
     },
     "tags": []
@@ -963,6 +754,23 @@
      "output_type": "stream",
      "text": [
       "\u001b[1m\u001b[22m`geom_smooth()` using formula = 'y ~ x'\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Warning message:\n",
+      "“\u001b[1m\u001b[22mRemoved 9 rows containing non-finite outside the scale range (`stat_smooth()`).”\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "Warning message:\n",
+      "“\u001b[1m\u001b[22mRemoved 9 rows containing missing values or values outside the scale range\n",
+      "(`geom_point()`).”\n"
      ]
     },
     {
@@ -1033,25 +841,25 @@
     "print(\"Key Relationship Visualizations:\")\n",
     "\n",
     "# Plot 1: Steps vs. Active Minutes\n",
-    "ggplot(user_averages, aes(x = AvgTotalSteps, y = AvgVeryActiveMinutes + AvgFairlyActiveMinutes)) +\n",
+    "suppressWarnings(ggplot(user_averages, aes(x = AvgTotalSteps, y = AvgVeryActiveMinutes + AvgFairlyActiveMinutes)) +\n",
     "  geom_point() +\n",
     "  geom_smooth(method = \"lm\") +\n",
-    "  labs(title = \"Steps vs. Active Minutes\", x = \"Average Total Steps\", y = \"Average Active Minutes\")\n",
+    "  labs(title = \"Steps vs. Active Minutes\", x = \"Average Total Steps\", y = \"Average Active Minutes\"))\n",
     "\n",
     "# Plot 2: Sleep Efficiency vs. Active Minutes\n",
-    "ggplot(user_averages, aes(x = AvgSleepEfficiency, y = AvgVeryActiveMinutes + AvgFairlyActiveMinutes)) +\n",
+    "suppressMessages(ggplot(user_averages, aes(x = AvgSleepEfficiency, y = AvgVeryActiveMinutes + AvgFairlyActiveMinutes)) +\n",
     "  geom_point() +\n",
     "  geom_smooth(method = \"lm\") +\n",
-    "  labs(title = \"Sleep Efficiency vs. Active Minutes\", x = \"Average Sleep Efficiency\", y = \"Average Active Minutes\")\n",
+    "  labs(title = \"Sleep Efficiency vs. Active Minutes\", x = \"Average Sleep Efficiency\", y = \"Average Active Minutes\"))\n",
     "\n",
     "# Plot 3: Steps vs. Calories\n",
-    "ggplot(user_averages, aes(x = AvgTotalSteps, y = AvgCalories)) +\n",
+    "suppressMessages(ggplot(user_averages, aes(x = AvgTotalSteps, y = AvgCalories))) +\n",
     "  geom_point() +\n",
     "  geom_smooth(method = \"lm\") +\n",
     "  labs(title = \"Steps vs. Calories\", x = \"Average Total Steps\", y = \"Average Calories\")\n",
     "\n",
     "# Plot 4: Intensity vs. Steps\n",
-    "ggplot(user_averages, aes(x = AvgTotalIntensity, y = AvgTotalSteps)) +\n",
+    "suppressMessages(ggplot(user_averages, aes(x = AvgTotalIntensity, y = AvgTotalSteps))) +\n",
     "  geom_point() +\n",
     "  geom_smooth(method = \"lm\") +\n",
     "  labs(title = \"Intensity vs. Steps\", x = \"Average Total Intensity\", y = \"Average Total Steps\")"
@@ -1059,13 +867,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5d12a450",
+   "id": "9872d16b",
    "metadata": {
     "papermill": {
-     "duration": 0.014355,
-     "end_time": "2025-03-15T06:45:33.661818",
+     "duration": 0.009558,
+     "end_time": "2025-03-25T04:49:35.834388",
      "exception": false,
-     "start_time": "2025-03-15T06:45:33.647463",
+     "start_time": "2025-03-25T04:49:35.824830",
      "status": "completed"
     },
     "tags": []
@@ -1078,20 +886,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
-   "id": "53799d60",
+   "execution_count": 9,
+   "id": "09fda1d2",
    "metadata": {
     "execution": {
-     "iopub.execute_input": "2025-03-15T06:45:33.692643Z",
-     "iopub.status.busy": "2025-03-15T06:45:33.691160Z",
-     "iopub.status.idle": "2025-03-15T06:45:33.705338Z",
-     "shell.execute_reply": "2025-03-15T06:45:33.703739Z"
+     "iopub.execute_input": "2025-03-25T04:49:35.856054Z",
+     "iopub.status.busy": "2025-03-25T04:49:35.854781Z",
+     "iopub.status.idle": "2025-03-25T04:49:35.866532Z",
+     "shell.execute_reply": "2025-03-25T04:49:35.865248Z"
     },
     "papermill": {
-     "duration": 0.032146,
-     "end_time": "2025-03-15T06:45:33.707554",
+     "duration": 0.024699,
+     "end_time": "2025-03-25T04:49:35.868357",
      "exception": false,
-     "start_time": "2025-03-15T06:45:33.675408",
+     "start_time": "2025-03-25T04:49:35.843658",
      "status": "completed"
     },
     "tags": []
@@ -1133,14 +941,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 7.972645,
-   "end_time": "2025-03-15T06:45:33.842103",
+   "duration": 7.865189,
+   "end_time": "2025-03-25T04:49:35.998388",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2025-03-15T06:45:25.869458",
+   "start_time": "2025-03-25T04:49:28.133199",
    "version": "2.6.0"
   }
  },
